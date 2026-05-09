@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cx25xgn2xrmie"]
+
+[ext_resource type="Script" uid="uid://c8rdpy8ax7hk8" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://d2m53lkyx462o" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dxe8ohhi3jxuo" path="res://enemy.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://2137q7scfhur" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://i2erivkbd8qj" path="res://arts/MilkyWay (Battle).mp3" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://qbnvk1uhlqd2" path="res://arts/sounddead.wav" id="6_272bh"]
+
+[sub_resource type="Curve2D" id="Curve2D_ig7tw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, -3, 0, 0, 0, 0, 478, -3, 0, 0, 0, 0, 478, 717, 0, 0, 0, 0, -2, 717, 0, 0, 0, 0, -2, -3)
+}
+point_count = 5
+
+[node name="Main" type="Node" unique_id=1115269060]
+script = ExtResource("1_0xm2m")
+enemy_scene = ExtResource("2_h2yge")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1850906081]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.020610409, 0.055340923, 0.162299, 1)
+
+[node name="Player" parent="." unique_id=143905841 instance=ExtResource("1_ig7tw")]
+position = Vector2(241, 457.99997)
+
+[node name="enemyTimer" type="Timer" parent="." unique_id=1617731663]
+wait_time = 0.5
+
+[node name="scoreTimer" type="Timer" parent="." unique_id=289687144]
+
+[node name="startTimer" type="Timer" parent="." unique_id=646569926]
+wait_time = 2.0
+one_shot = true
+
+[node name="startPosition" type="Marker2D" parent="." unique_id=594749046]
+position = Vector2(244, 470)
+
+[node name="enemyPath" type="Path2D" parent="." unique_id=962418706]
+position = Vector2(2, 3)
+curve = SubResource("Curve2D_ig7tw")
+
+[node name="enemySpawnLocation" type="PathFollow2D" parent="enemyPath" unique_id=1021994025]
+position = Vector2(-2, -3)
+
+[node name="HUD" parent="." unique_id=1040502373 instance=ExtResource("4_1bvp3")]
+
+[node name="music" type="AudioStreamPlayer" parent="." unique_id=126758246]
+stream = ExtResource("5_7mycd")
+autoplay = true
+
+[node name="death" type="AudioStreamPlayer" parent="." unique_id=380691480]
+stream = ExtResource("6_272bh")
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="hit" from="Player" to="." method="new_game"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="enemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="scoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="startTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]

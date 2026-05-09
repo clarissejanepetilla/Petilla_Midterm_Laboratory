@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://d2m53lkyx462o"]
+
+[ext_resource type="Script" uid="uid://cljflhfbn3pe4" path="res://player.gd" id="1_sweqy"]
+[ext_resource type="Texture2D" uid="uid://ca56x0cy37vel" path="res://arts/playerAstroUp.png" id="2_sweqy"]
+[ext_resource type="Texture2D" uid="uid://cuha7tjpwr6gb" path="res://arts/playerAstroUp1.png" id="3_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://cg81nelgn0qhw" path="res://arts/playerAstroWalk.png" id="4_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://cbmqqu0lk4jux" path="res://arts/playerAstroWalk1.png" id="5_dw050"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sweqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2hs0m")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1jxqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dw050")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
+radius = 165.0
+height = 470.00024
+
+[node name="Player" type="Area2D" unique_id=143905841]
+position = Vector2(248, 380)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_sweqy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=446917732]
+position = Vector2(-1.5258789e-05, 34.99996)
+scale = Vector2(1.3916249, 1.4190423)
+sprite_frames = SubResource("SpriteFrames_dw050")
+animation = &"walk"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845155681]
+position = Vector2(-10, 35)
+scale = Vector2(0.9999997, 0.9999997)
+shape = SubResource("CapsuleShape2D_sweqy")
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
