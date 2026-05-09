@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://i2erivkbd8qj"
+path="res://.godot/imported/MilkyWay (Battle).mp3-c5ebaa28067bff4e83f9c7071f24e00b.mp3str"
+
+[deps]
+
+source_file="res://arts/MilkyWay (Battle).mp3"
+dest_files=["res://.godot/imported/MilkyWay (Battle).mp3-c5ebaa28067bff4e83f9c7071f24e00b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
